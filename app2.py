@@ -38,22 +38,33 @@ st.markdown("""
 def load_models():
     """Load all saved models and scalers"""
     try:
-        churn_model = joblib.load('/Users/apple/Desktop/MARKETING PROJ/best_churn_model.pkl')
-        churn_scaler = joblib.load('/Users/apple/Desktop/MARKETING PROJ/scaler_churn.pkl')
-        gg_model = joblib.load('/Users/apple/Desktop/MARKETING PROJ/gamma_gamma_model.pkl')
-        feature_names = joblib.load('/Users/apple/Desktop/MARKETING PROJ/feature_names.pkl')
+        # Get the directory where this script is located
+        import os
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        
+        # Load models using absolute paths
+        churn_model = joblib.load(os.path.join(script_dir, 'best_churn_model.pkl'))
+        churn_scaler = joblib.load(os.path.join(script_dir, 'scaler_churn.pkl'))
+        gg_model = joblib.load(os.path.join(script_dir, 'gamma_gamma_model.pkl'))
+        feature_names = joblib.load(os.path.join(script_dir, 'feature_names.pkl'))
         
         return churn_model, churn_scaler, gg_model, feature_names
     except Exception as e:
         st.error(f"Error loading models: {e}")
+        st.error(f"Current working directory: {os.getcwd()}")
+        st.error(f"Script directory: {os.path.dirname(os.path.abspath(__file__))}")
         st.stop()
 
 # Load customer data for analysis
 @st.cache_data
 def load_customer_data():
-    """Load customer-level data for EDA tab"""
+    """Load customer-level data for EDA tab1"""
     try:
-        df = pd.read_csv('/Users/apple/Desktop/MARKETING PROJ/cleaned_customer_transactions.csv')
+        # Get the directory where this script is located
+        import os
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        
+        df = pd.read_csv(os.path.join(script_dir, 'cleaned_customer_transactions.csv'))
         return df
     except Exception as e:
         st.error(f"Error loading customer data: {e}")
@@ -62,7 +73,11 @@ def load_customer_data():
 def cld():
     """Load customer-level data for EDA tab"""
     try:
-        df = pd.read_csv('/Users/apple/Desktop/MARKETING PROJ/customer_level_data.csv')
+        # Get the directory where this script is located
+        import os
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        
+        df = pd.read_csv(os.path.join(script_dir, 'customer_level_data.csv'))
         return df
     except Exception as e:
         st.error(f"Error loading customer data: {e}")

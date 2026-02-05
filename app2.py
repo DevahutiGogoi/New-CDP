@@ -589,12 +589,21 @@ with tab3:
     **Version**: 1.0  
     **Last Updated**: February 2026
     
-    For questions or support, please contact Devahuti Gogoi (devahuti.gogoi@u.nus.edu)..
+    For questions or support, please contact Devahuti Gogoi (devahuti.gogoi@u.nus.edu)
     """)
 
 # Sidebar
 with st.sidebar:
-    st.image("/Users/apple/Desktop/MARKETING PROJ/image.png", width=150)
+    # Try to load local image, fallback to online image if not found
+    import os
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    image_path = os.path.join(script_dir, 'image.png')
+    
+    if os.path.exists(image_path):
+        st.image(image_path, width=180)
+    else:
+        # Fallback to online image if local image not found
+        st.image("https://png.pngtree.com/png-clipart/20250111/original/pngtree-3d-data-analytics-dashboard-with-rising-graph-on-transparent-background-png-image_19088845.png", width=180)
     st.markdown("## 🎛️ Dashboard Controls")
     st.markdown("---")
     
